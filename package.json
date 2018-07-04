@@ -1,0 +1,43 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^1.3.6",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-date": "^1.0.3",
+    "graphql-subscriptions": "^0.5.8",
+    "graphql-tools": "^3.0.4",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10",
+    "merge-graphql-schemas": "^1.5.2",
+    "mongoose": "^5.2.1",
+    "subscriptions-transport-ws": "^0.9.12"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^23.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.0.1",
+    "eslint-config-equimper": "^2.2.2",
+    "eslint-config-prettier": "^2.9.0",
+    "jest": "^23.3.0",
+    "nodemon": "^1.17.5",
+    "prettier": "^1.13.7",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
