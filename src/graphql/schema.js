@@ -2,6 +2,7 @@ export default `
   type User {
     _id: ID!
     email: String!
+    username: String!
     firstName: String
     lastName: String
   }
@@ -42,7 +43,7 @@ export default `
     updateTodoChain(_id: ID!, title: String) : TodoChain
     createTodo(name: String!, todoChain: ID!): Todo
     updateTodo(_id: ID!, name: String): Todo
-    signup(email: String!, password: String!, fullName: String!): User
+    signup(email: String!,username: String!, password: String!, fullName: String!): Auth
     login(email: String!, password: String!): Auth
   }
 
