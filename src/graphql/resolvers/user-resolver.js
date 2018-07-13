@@ -1,76 +1,85 @@
 import User from '../../models/User';
 import constants from '../../config/constants';
-import { createTokens } from '../../config/auth';
+import { createTokens, RequireAuth } from '../../config/auth';
+import formatErrors from '../../config/formatError';
 
 export default {
-  signup: async (_, { fullName, email, username, ...rest }) => {
+  signup: async (_, { fullName, email, username, password }) => {
     const [firstName, ...lastName] = fullName.split(' ');
-    const userEmail = await User.findOne({ email });
-    const userExist = await User.findOne({ username });
 
-    if (userEmail) {
+    try {
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
+      });
+      const refreshTokenSecret = user.password + constants.SECRET2;
+
+      const [token, refreshToken] = await createTokens(
+        user,
+        constants.SECRET,
+        refreshTokenSecret,
+      );
+
+      return {
+        ok: true,
+        token,
+        refreshToken,
+        errors: null,
+      };
+    } catch (err) {
       return {
         ok: false,
-        errors: [{ path: 'email', message: 'This email exist' }],
+        token: null,
+        refreshToken: null,
+        errors: formatErrors(err),
       };
     }
-
-    if (userExist) {
-      return {
-        ok: false,
-        errors: [{ path: 'email', message: 'This username already taken' }],
-      };
-    }
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      username,
-      ...rest,
-    });
-    const refreshTokenSecret = user.password + constants.SECRET2;
-
-    const [token, refreshToken] = await createTokens(
-      user,
-      constants.SECRET,
-      refreshTokenSecret,
-    );
-
-    return {
-      ok: true,
-      token,
-      refreshToken,
-    };
   },
   login: async (_, { email, password }) => {
-    const user = await User.findOne({ email });
+    try {
+      const user = await User.findOne({ email });
 
-    if (!user) {
+      if (!user) {
+        return {
+          ok: false,
+          errors: [{ path: 'login', message: 'Invalid credentials' }],
+        };
+      }
+
+      if (!user.authenticate(password)) {
+        return {
+          ok: false,
+          errors: [{ path: 'login', message: 'Invalid credentials' }],
+        };
+      }
+
+      const refreshTokenSecret = user.password + constants.SECRET2;
+
+      const [token, refreshToken] = await createTokens(
+        user,
+        constants.SECRET,
+        refreshTokenSecret,
+      );
+
       return {
-        ok: false,
-        errors: [{ path: 'email', message: 'Invalid credentials' }],
+        ok: true,
+        token,
+        refreshToken,
       };
+    } catch (e) {
+      throw e;
     }
-
-    if (!user.authenticate(password)) {
-      return {
-        ok: false,
-        errors: [{ path: 'password', message: 'Invalid credentials' }],
-      };
+  },
+  getOwner: ({ owner }) => User.findById({ _id: owner }),
+  me: async (_, args, { user }) => {
+    try {
+      const me = await RequireAuth(user);
+      return me;
+    } catch (e) {
+      throw e;
     }
-
-    const refreshTokenSecret = user.password + constants.SECRET2;
-
-    const [token, refreshToken] = await createTokens(
-      user,
-      constants.SECRET,
-      refreshTokenSecret,
-    );
-
-    return {
-      ok: true,
-      token,
-      refreshToken,
-    };
   },
 };

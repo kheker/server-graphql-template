@@ -1,23 +1,32 @@
-import TodoChainResolvers from './todoChain-resolvers';
-import TodoResolvers from './todo-resolvers';
+import CardResolvers from './card-resolvers';
+import ListResolvers from './list-resolvers';
 import UserResovers from './user-resolver';
+import TeamResolvers from './team-resolvers';
+import MemberResolvers from './member-resolvers';
 
 export default {
   Query: {
-    getTodoChain: TodoChainResolvers.getTodoChain,
-    getTodoChains: TodoChainResolvers.getTodoChains,
-    getTodo: TodoResolvers.getTodo,
-    getTodos: TodoResolvers.getTodos,
+    getCard: CardResolvers.getCard,
+    getPublicCards: CardResolvers.getPublicCards,
+    getMyCards: CardResolvers.getMyCards,
+    getList: ListResolvers.getList,
+    getLists: ListResolvers.getLists,
+    me: UserResovers.me,
   },
   Mutation: {
-    createTodo: TodoResolvers.createTodo,
-    updateTodo: TodoResolvers.updateTodo,
-    createTodoChain: TodoChainResolvers.createTodoChain,
-    updateTodoChain: TodoChainResolvers.updateTodoChain,
+    createList: ListResolvers.createList,
+    updateList: ListResolvers.updateList,
+    createCard: CardResolvers.createCard,
+    updateCard: CardResolvers.updateCard,
+    addMember: MemberResolvers.addMember,
     signup: UserResovers.signup,
     login: UserResovers.login,
   },
-  TodoChain: {
-    todos: TodoResolvers.getTodoChainTodos,
+  Card: {
+    owner: UserResovers.getOwner,
+    team: TeamResolvers.getCardTeam,
+  },
+  Member: {
+    user: MemberResolvers.usersMember,
   },
 };

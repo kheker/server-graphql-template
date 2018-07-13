@@ -3,6 +3,7 @@ export default `
     _id: ID!
     email: String!
     username: String!
+    avatar: String
     firstName: String
     lastName: String
   }
@@ -14,35 +15,65 @@ export default `
     errors: [Error!]
   }
 
-  type TodoChain {
+  type Me {
     _id: ID!
-    title: String!
-    todos: [Todo]
+    email: String!
+    username: String!
+    avatar: String
+    firstName: String
+    lastName: String
   }
 
-  type Todo {
+  type Card {
     _id: ID!
-    todoChain: ID!
+    name: String!
+    public: Boolean!
+    owner: User!
+    team: Team
+    ok: Boolean
+    errors: [Error!]
+  }
+
+  type Team {
+    _id: ID!
+    name: String!
+    members: [Member]
+    errors: [Error!]
+  }
+
+  type Member {
+    _id : ID!
+    role: String!
+    user: User
+    errors: [Error!]
+  }
+
+  type List {
+    _id: ID!
+    card: ID!
     name: String!
   }
 
   type Error {
-    path: String!
+    path: String
     message: String
   }
 
   type Query {
-    getTodoChain(_id: ID!): TodoChain
-    getTodoChains: [TodoChain]
-    getTodo(_id: ID!): Todo
-    getTodos: [Todo]
+    getCard(_id: ID!): Card
+    getPublicCards: [Card]
+    getMyCards: [Card]
+    getList(_id: ID!): List
+    getLists: [List]
+    me: Me
   }
 
   type Mutation {
-    createTodoChain(title: String!): TodoChain
-    updateTodoChain(_id: ID!, title: String) : TodoChain
-    createTodo(name: String!, todoChain: ID!): Todo
-    updateTodo(_id: ID!, name: String): Todo
+    createCard(name: String!, public: Boolean): Card
+    updateCard(_id: ID!, title: String) : Card
+    createList(name: String!, card: ID!): List
+    updateList(_id: ID!, name: String): List
+    addMember(userId: ID!, teamId: ID!): Member
     signup(email: String!,username: String!, password: String!, fullName: String!): Auth
     login(email: String!, password: String!): Auth
   }
