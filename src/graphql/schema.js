@@ -1,4 +1,6 @@
 export default `
+  scalar Date
+
   type User {
     _id: ID!
     email: String!
@@ -30,6 +32,7 @@ export default `
     public: Boolean!
     owner: User!
     team: Team
+    lists: [List!]
     ok: Boolean
     errors: [Error!]
   }
@@ -52,6 +55,12 @@ export default `
     _id: ID!
     card: ID!
     name: String!
+    description: String
+    file: String
+    expirationDate: Date
+    createAt: Date
+    updateAt: Date
+    errors: [Error!]
   }
 
   type Error {
@@ -64,18 +73,19 @@ export default `
     getPublicCards: [Card]
     getMyCards: [Card]
     getList(_id: ID!): List
-    getLists: [List]
     me: Me
   }
 
   type Mutation {
     createCard(name: String!, public: Boolean): Card
     updateCard(_id: ID!, title: String) : Card
-    createList(name: String!, card: ID!): List
-    updateList(_id: ID!, name: String): List
+    createList(name: String!, card: ID!, description: String): List
+    updateList(_id: ID!, teamId: ID!, name: String, description: String, expirationDate: Date, file: String): List
     addMember(userId: ID!, teamId: ID!): Member
+    updateMember(role: String, memberId: ID!, teamId: ID!): Member
     signup(email: String!,username: String!, password: String!, fullName: String!): Auth
     login(email: String!, password: String!): Auth
+    updateUser(avatar: String): Me
   }
 
   schema {
