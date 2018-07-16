@@ -7,7 +7,6 @@ export default {
   addMember: async (_, { userId, teamId }, { user }) => {
     try {
       await memberPermision(user, teamId);
-      console.log(userId, teamId);
       return Member.create({ user: userId, team: teamId, role: 'observer' });
     } catch (e) {
       return {
@@ -21,7 +20,15 @@ export default {
       const member = await User.findById(parent.user);
       return member;
     } catch (e) {
-      console.log(e);
+      throw e;
+    }
+  },
+  updateMember: async (_, { role, memberId, teamId }, { user }) => {
+    try {
+      await memberPermision(user, teamId);
+      return Member.findByIdAndUpdate(memberId, role, { new: true });
+    } catch (e) {
+      throw e;
     }
   },
 };
