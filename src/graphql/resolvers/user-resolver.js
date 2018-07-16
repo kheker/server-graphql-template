@@ -82,4 +82,12 @@ export default {
       throw e;
     }
   },
+  updateUser: async (_, args, { user }) => {
+    try {
+      await RequireAuth(user);
+      return User.findByIdAndUpdate(user.id, args, { new: true });
+    } catch (e) {
+      throw e;
+    }
+  },
 };
