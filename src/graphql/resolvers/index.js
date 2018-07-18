@@ -4,6 +4,7 @@ import ListResolvers from './list-resolvers';
 import UserResovers from './user-resolver';
 import TeamResolvers from './team-resolvers';
 import MemberResolvers from './member-resolvers';
+import TaskResolvers from './task-resolvers';
 
 export default {
   Date: GraphQLDate,
@@ -15,10 +16,13 @@ export default {
     me: UserResovers.me,
   },
   Mutation: {
-    createList: ListResolvers.createList,
-    updateList: ListResolvers.updateList,
     createCard: CardResolvers.createCard,
     updateCard: CardResolvers.updateCard,
+    createList: ListResolvers.createList,
+    updateList: ListResolvers.updateList,
+    createTask: TaskResolvers.createTask,
+    updateTask: TaskResolvers.updateTask,
+    addSubTask: TaskResolvers.addSubTask,
     addMember: MemberResolvers.addMember,
     updateMember: MemberResolvers.updateMember,
     signup: UserResovers.signup,

@@ -24,6 +24,7 @@ export default {
       return card;
     } catch (e) {
       return {
+        ok: false,
         errors: formatErrors(e),
       };
     }

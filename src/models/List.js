@@ -19,7 +19,7 @@ const ListSchema = Schema(
     },
     checklist: [
       {
-        task: {
+        generalTask: {
           type: String,
           trim: true,
         },

@@ -15,7 +15,8 @@ export const memberPermision = async (user, teamId) => {
     throw new Error('Unauthorized!');
   }
   const member = await Member.findOne({ user: user.id, team: teamId });
-  if (!member) {
+
+  if (!member  || member == null) {
     throw new Error('Unauthorized!');
   }
   /*

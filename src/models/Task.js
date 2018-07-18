@@ -11,9 +11,15 @@ const TaskSchema = new Schema(
       type: String,
       trim: true,
     },
-    completed: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      enum: ['In progress', 'Done'],
+      default: 'In progress',
+    },
+    listId: {
+      type: Schema.Types.ObjectId,
+      ref: 'List',
+      required: true,
     },
     subTask: [
       {
