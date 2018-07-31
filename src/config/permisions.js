@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 import Member from '../models/Members';
 
 export const adminPermision = async (user, cardOwner) => {
+=======
+import User from '../models/User';
+
+export const RequireAuth = async user => {
+>>>>>>> c27180486b6d666bb0e2f5d12a7552cfb4d11859
   if (!user || !user.id) {
     throw new Error('Unauthorized!');
   }
 
+<<<<<<< HEAD
   if (user.id !== cardOwner) {
     throw new Error('Unauthorized!');
   }
@@ -25,3 +32,14 @@ export const memberPermision = async (user, teamId) => {
   }
   */
 };
+=======
+  const me = await User.findById(user.id);
+
+  if (!me) {
+    throw new Error('Unauthorized!');
+  }
+
+  return me;
+};
+
+>>>>>>> c27180486b6d666bb0e2f5d12a7552cfb4d11859
