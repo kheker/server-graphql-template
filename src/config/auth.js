@@ -9,7 +9,7 @@ export const createTokens = async (user, secret, secret2) => {
     },
     secret,
     {
-      expiresIn: '1h',
+      expiresIn: '1m',
     },
   );
 
@@ -41,13 +41,13 @@ export const refreshTokens = async (token, refreshToken, SECRET, SECRET2) => {
     return {};
   }
 
-  const user = await User.findOne({ userId });
+  const user = await User.findById(userId);
 
   if (!user) {
     return {};
   }
 
-  const refreshSecret = user.password + SECRET2;
+  const refreshSecret = `${user.password}${SECRET2}`;
 
   try {
     jwt.verify(refreshToken, refreshSecret);
@@ -60,15 +60,10 @@ export const refreshTokens = async (token, refreshToken, SECRET, SECRET2) => {
     SECRET,
     refreshSecret,
   );
+
   return {
     token: newToken,
     refreshToken: newRefreshToken,
     user,
   };
-};
-
-export const RequireAuth = user => {
-  if (!user || !user._id) {
-    throw new Error('Unauthorized!');
-  }
 };

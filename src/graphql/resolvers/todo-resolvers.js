@@ -1,5 +1,5 @@
 import Todo from '../../models/Todo';
-import { RequireAuth } from '../../config/auth';
+import { RequireAuth } from '../../config/permisions';
 
 export default {
   getTodo: (_, { _id }) => Todo.findById(_id),

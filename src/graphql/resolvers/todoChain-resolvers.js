@@ -1,5 +1,5 @@
 import TodoChain from '../../models/TodoChain';
-import { RequireAuth } from '../../config/auth';
+import { RequireAuth } from '../../config/permisions';
 
 export default {
   getTodoChain: (_, { _id }) => TodoChain.findById(_id),
