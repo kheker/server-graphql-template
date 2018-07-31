@@ -25,7 +25,6 @@
     "lodash": "^4.17.10",
     "merge-graphql-schemas": "^1.5.2",
     "mongoose": "^5.2.1",
-    "mongoose-unique-validator": "^2.0.1",
     "subscriptions-transport-ws": "^0.9.12"
   },
   "devDependencies": {
@@ -34,7 +33,7 @@
     "babel-jest": "^23.2.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^5.2.0",
+    "eslint": "^5.0.1",
     "eslint-config-equimper": "^2.2.2",
     "eslint-config-prettier": "^2.9.0",
     "jest": "^23.3.0",

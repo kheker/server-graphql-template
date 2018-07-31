@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import { hashSync, compareSync } from 'bcrypt-nodejs';
-import uniqueValidator from 'mongoose-unique-validator';
 
 const UserSchema = new Schema(
   {
@@ -52,10 +51,6 @@ const UserSchema = new Schema(
   },
   { timestamps: true },
 );
-
-UserSchema.plugin(uniqueValidator, {
-  message: '{VALUE} already taken!',
-});
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password')) {
