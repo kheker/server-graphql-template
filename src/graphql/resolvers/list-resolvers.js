@@ -9,9 +9,11 @@ export default {
   createList: async (_, { teamId, ...args }, { user }) => {
     try {
       await memberPermision(user, teamId);
-      return List.create(args);
+      const list = await List.create(args);
+      return { ok: true, list };
     } catch (e) {
       return {
+        ok: false,
         errors: formatErrors(e),
       };
     }
@@ -19,9 +21,11 @@ export default {
   updateList: async (_, { _id, teamId, ...rest }, { user }) => {
     try {
       await memberPermision(user, teamId);
-      return List.findByIdAndUpdate(_id, rest, { new: true });
+      const list = await List.findByIdAndUpdate(_id, rest, { new: true });
+      return { ok: true, list };
     } catch (e) {
       return {
+        ok: false,
         errors: formatErrors(e),
       };
     }

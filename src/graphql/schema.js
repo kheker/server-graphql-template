@@ -29,11 +29,17 @@ export default `
   type Card {
     _id: ID!
     name: String!
-    public: Boolean!
+    publicCard: Boolean
     owner: User!
     team: Team
     lists: [List!]
-    ok: Boolean
+    createdAt: Date
+    updatedAt: Date
+  }
+
+  type CardResponse {
+    ok: Boolean!
+    card: Card
     errors: [Error!]
   }
 
@@ -41,6 +47,11 @@ export default `
     _id: ID!
     name: String!
     members: [Member]
+  }
+
+  type TeamResponse {
+    ok: Boolean!
+    team: Team
     errors: [Error!]
   }
 
@@ -60,6 +71,11 @@ export default `
     expirationDate: Date
     createdAt: Date
     updatedAt: Date
+  }
+
+  ListResponse {
+    ok: Boolean!
+    list: List
     errors: [Error!]
   }
 
@@ -73,6 +89,11 @@ export default `
     createdAt: Date
     updatedAt: Date
     ok: Boolean
+  }
+
+  type TaskResponse {
+    ok: Boolean!
+    task: Task
     errors: [Error!]
   }
 
@@ -95,12 +116,12 @@ export default `
   }
 
   type Mutation {
-    createCard(name: String!, public: Boolean): Card
-    updateCard(_id: ID!, title: String) : Card
-    createList(name: String!,teamId: ID!, card: ID!, description: String): List
-    updateList(_id: ID!, teamId: ID!, name: String, description: String, expirationDate: Date, file: String): List
-    createTask(listId: ID!, teamId: ID!, name: String!, description: String, expirationDate: Date, status: String): Task
-    updateTask(_id: ID!, teamId:ID!, listId: ID!, name: String, description: String, expirationDate: Date, status: String): Task
+    createCard(name: String!, publicCard: Boolean): CardResponse
+    updateCard(_id: ID!, title: String) : CardResponse
+    createList(name: String!,teamId: ID!, card: ID!, description: String): ListResponse
+    updateList(_id: ID!, teamId: ID!, name: String, description: String, expirationDate: Date, file: String): ListResponse
+    createTask(listId: ID!, teamId: ID!, name: String!, description: String, expirationDate: Date, status: String): TaskResponse
+    updateTask(_id: ID!, teamId:ID!, listId: ID!, name: String, description: String, expirationDate: Date, status: String): TaskResponse
     addSubTask(_id: ID!,teamId: ID!, name: String!, completed: Boolean): Task
     addMember(userId: ID!, teamId: ID!): Member
     updateMember(role: String, memberId: ID!, teamId: ID!): Member

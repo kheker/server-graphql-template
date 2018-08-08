@@ -6,7 +6,7 @@ const CardSchema = new Schema({
     trim: true,
     required: [true, 'Name is required'],
   },
-  public: {
+  publicCard: {
     type: Boolean,
     default: false,
   },

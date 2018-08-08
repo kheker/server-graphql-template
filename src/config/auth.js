@@ -55,11 +55,7 @@ export const refreshTokens = async (token, refreshToken, SECRET, SECRET2) => {
     return {};
   }
 
-  const [newToken, newRefreshToken] = await createTokens(
-    user,
-    SECRET,
-    refreshSecret,
-  );
+  const [newToken, newRefreshToken] = await createTokens(user, SECRET, refreshSecret);
 
   return {
     token: newToken,

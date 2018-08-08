@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import uuid4 from 'uuid4';
 
 const TaskSchema = new Schema(
   {
@@ -23,6 +24,7 @@ const TaskSchema = new Schema(
     },
     subTask: [
       {
+        _id: {type: String, default: uuid4()} ,
         name: {
           type: String,
           trim: true,
