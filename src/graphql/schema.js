@@ -73,7 +73,7 @@ export default `
     updatedAt: Date
   }
 
-  ListResponse {
+  type ListResponse {
     ok: Boolean!
     list: List
     errors: [Error!]
